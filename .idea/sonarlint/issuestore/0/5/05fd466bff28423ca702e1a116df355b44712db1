@@ -1,0 +1,44 @@
+
+u	java:S135F"YReduce the total number of break and continue statements in this loop to use at most one.(¡ÒŒ¤8ğªª¶İ1
+z	java:S135S"YReduce the total number of break and continue statements in this loop to use at most one.(ÈÚ´Áşÿÿÿÿ8ñªª¶İ1
+z	java:S135`"YReduce the total number of break and continue statements in this loop to use at most one.(ÈÚ´Áşÿÿÿÿ8ñªª¶İ1
+z	java:S135m"YReduce the total number of break and continue statements in this loop to use at most one.(ÈÚ´Áşÿÿÿÿ8ñªª¶İ1
+z	java:S135z"YReduce the total number of break and continue statements in this loop to use at most one.(ÈÚ´Áşÿÿÿÿ8¼É¼Áİ1
+…
+java:S1319"gThe type of "imports" should be an interface such as "List" rather than the implementation "ArrayList".(¯óÚ€8òªª¶İ1
+ˆ
+java:S1319"jThe type of "currencies" should be an interface such as "List" rather than the implementation "ArrayList".(¯óÚ€8òªª¶İ1
+ƒ
+java:S1319"eThe type of "types" should be an interface such as "List" rather than the implementation "ArrayList".(¯óÚ€8òªª¶İ1
+†
+java:S1319"hThe type of "comments" should be an interface such as "List" rather than the implementation "ArrayList".(¯óÚ€8òªª¶İ1
+ƒ
+java:S1319"eThe type of "dates" should be an interface such as "List" rather than the implementation "ArrayList".(¯óÚ€8óªª¶İ1
+ƒ
+java:S1319Ú"eThe type of "types" should be an interface such as "List" rather than the implementation "ArrayList".(òÈÑ™8óªª¶İ1
+Œ
+java:S1319Ú"nThe type of "earningsByType" should be an interface such as "List" rather than the implementation "ArrayList".(òÈÑ™8ÿ´Ô¶İ1
+ƒ
+java:S1319ô"eThe type of "types" should be an interface such as "List" rather than the implementation "ArrayList".(¬Àé­8€µÔ¶İ1
+Œ
+java:S1319ô"nThe type of "expensesByType" should be an interface such as "List" rather than the implementation "ArrayList".(¬Àé­8†şêÁİ1
+j
+java:S2095¬"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(Î³ß8ï°ª¶İ1
+n
+java:S2095-"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(„‹»—ûÿÿÿÿ8ï°ª¶İ1
+i
+java:S2095!"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(Ÿğƒµ8î°ª¶İ1
+L	java:S106%"+Replace this use of System.out by a logger.(Úíµ›ûÿÿÿÿ8ú°ª¶İ1
+L	java:S1061"+Replace this use of System.out by a logger.(ûÆ“ïúÿÿÿÿ8ü°ª¶İ1
+o
+java:S37766"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(Õ—©½8ş°ª¶İ1
+S
+java:S1854"5Remove this useless assignment to local variable "i".(Ì‚ˆÌ8ÿ°ª¶İ1
+d
+java:S1659D"BDeclare "begin" and all following declarations on a separate line.(¢¥ª¹øÿÿÿÿ8ƒ±ª¶İ1
+H	java:S106Œ"+Replace this use of System.out by a logger.(º„º‰8‰±ª¶İ1
+H	java:S106—"+Replace this use of System.out by a logger.(Åå¿¬8‹±ª¶İ1
+M	java:S106“"+Replace this use of System.out by a logger.(˜ÖäÇúÿÿÿÿ8°±ª¶İ1
+H	java:S106°"+Replace this use of System.out by a logger.(Ó8µ±ª¶İ1
+ã
+java:S65416"ÅA "Brain Method" was detected. Refactor it to reduce at least one of the following metrics: LOC from 80 to 64, Complexity from 17 to 14, Nesting Level from 4 to 2, Number of Variables from 11 to 6.(Õ—©½8ÈÌ¼Áİ1

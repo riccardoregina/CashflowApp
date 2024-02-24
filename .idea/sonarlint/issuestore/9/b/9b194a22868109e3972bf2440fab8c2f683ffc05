@@ -1,0 +1,14 @@
+
+p
+java:S11929"NDefine a constant instead of duplicating this literal "Last semester" 3 times.(…Éüåıÿÿÿÿ8—Ö¦Ãİ1
+L	java:S106j"+Replace this use of System.out by a logger.(ı™øøÿÿÿÿ8Î­Ü¾İ1
+L	java:S106|"+Replace this use of System.out by a logger.(ı™øøÿÿÿÿ8Ï­Ü¾İ1
+H	java:S106Ø"+Replace this use of System.out by a logger.( šÏø8×­Ü¾İ1
+Z
+java:S1128"8Remove this unused import 'javafx.application.Platform'.(§“óùÿÿÿÿ8ê«¥Ãİ1
+Z
+java:S1128"8Remove this unused import 'javafx.scene.chart.BarChart'.(÷‡¬Äøÿÿÿÿ8ê«¥Ãİ1
+Z
+java:S1128"8Remove this unused import 'javafx.scene.control.Button'.(Ë Í‹øÿÿÿÿ8ê«¥Ãİ1
+N
+java:S1128",Remove this unused import 'java.time.Month'.(¤‚Éøÿÿÿÿ8ê«¥Ãİ1

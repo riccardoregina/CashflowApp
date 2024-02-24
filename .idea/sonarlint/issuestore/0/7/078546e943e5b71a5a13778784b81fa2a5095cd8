@@ -1,0 +1,14 @@
+
+‚
+java:S1319p"eThe type of "types" should be an interface such as "List" rather than the implementation "ArrayList".(©©œ´8Óì±ˆÜ1
+‹
+java:S1319p"nThe type of "expensesByType" should be an interface such as "List" rather than the implementation "ArrayList".(©©œ´8Óì±ˆÜ1
+Ã
+java:S1598" This file "Controller.java" should be located in "controller" directory, not in "C:\Users\ricca\Il mio Drive\Coding\cashflow\cashflow\src\main\java\Controller".( êö§ýÿÿÿÿ8Ôì±ˆÜ1
+n
+java:S2095"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(§›ðêÿÿÿÿÿ8½í±ˆÜ1
+L	java:S106"+Replace this use of System.out by a logger.(ñ—¸½úÿÿÿÿ8Íí±ˆÜ1
+G	java:S106$"+Replace this use of System.out by a logger.(æ†’Þ8Ïí±ˆÜ1
+G	java:S106/"+Replace this use of System.out by a logger.(Ú¤Ò‰8çô³ˆÜ1
+F
+java:S1128")Remove this unused import 'java.io.File'.(†Ð¥Å8Úí±ˆÜ1

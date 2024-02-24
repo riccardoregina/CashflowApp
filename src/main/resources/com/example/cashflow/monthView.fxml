@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cashflow.MonthViewController">
+   <children>
+      <Button layoutX="865.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchToAddTransaction" text="Add transaction" />
+      <ChoiceBox fx:id="choiceMenu" layoutX="42.0" layoutY="23.0" prefHeight="25.0" prefWidth="113.0" />
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#dfdfdf" height="67.0" layoutX="41.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="157.0" />
+      <Label layoutX="70.0" layoutY="90.0" text="You have spent ">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMoneySpent" alignment="CENTER" layoutX="37.0" layoutY="111.0" prefHeight="36.0" prefWidth="169.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button layoutX="245.0" layoutY="23.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#dfdfdf" height="67.0" layoutX="41.0" layoutY="169.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="157.0" />
+      <Label layoutX="70.0" layoutY="177.0" text="You have earned">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelMoneyEarned" alignment="CENTER" layoutX="37.0" layoutY="194.0" prefHeight="36.0" prefWidth="169.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#dfdfdf" height="152.0" layoutX="217.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="169.0" />
+      <Label alignment="CENTER" layoutX="235.0" layoutY="125.0" prefHeight="28.0" prefWidth="134.0" text="Balance">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelBalance" alignment="CENTER" layoutX="223.0" layoutY="151.0" prefHeight="36.0" prefWidth="157.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="choiceDefaultCurrency" layoutX="166.0" layoutY="23.0" prefHeight="25.0" prefWidth="70.0" />
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#dfdfdf" height="301.0" layoutX="41.0" layoutY="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="345.0" />
+      <AreaChart fx:id="areachartTransactions" horizontalGridLinesVisible="false" layoutX="41.0" layoutY="289.0" prefHeight="281.0" prefWidth="336.0" verticalGridLinesVisible="false">
+         <xAxis>
+            <NumberAxis autoRanging="false" lowerBound="1.0" minorTickCount="1" side="BOTTOM" tickLength="5.0" tickUnit="1.0" upperBound="31.0" fx:id="xAxis" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </AreaChart>
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#dfdfdf" height="233.0" layoutX="406.0" layoutY="338.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="365.0" />
+      <PieChart fx:id="piechartExpenses" labelLineLength="10.0" labelsVisible="false" layoutX="407.0" layoutY="338.0" prefHeight="233.0" prefWidth="365.0" />
+      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#dfdfdf" height="233.0" layoutX="406.0" layoutY="84.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="365.0" />
+      <PieChart fx:id="piechartEarnings" labelsVisible="false" layoutX="406.0" layoutY="84.0" prefHeight="233.0" prefWidth="365.0" />
+      <Button fx:id="buttonSettings" layoutX="975.0" layoutY="23.0" mnemonicParsing="false" onAction="#switchToSettings" text="Settings" />
+      <ScrollPane layoutX="793.0" layoutY="78.0" prefHeight="494.0" prefWidth="262.0" styleClass="transparent" stylesheets="@../../../css/styles.css">
+         <content>
+            <VBox fx:id="cardContainer" prefHeight="488.0" prefWidth="217.0" spacing="10.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
