@@ -18,7 +18,7 @@ public class Controller {
     private Currency defaultCurrency = Currency.EUR;
 
     private Path filePath;
-    private Path defaultFilePath = Paths.get(System.getProperty("user.home") + "\\Desktop\\history_location.config");
+    private Path defaultFilePath = Paths.get(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "history_location.config");
     public Controller() {
         register = new Register();
         exchange = new Exchange();
@@ -27,24 +27,22 @@ public class Controller {
     }
 
     public void setHistoryLocationFile() {
-        BufferedWriter writer;
         try {
             Files.createFile(defaultFilePath);
-            writer = new BufferedWriter(new FileWriter(defaultFilePath.toString()));
-            writer.write(System.getProperty("user.home") + "\\Desktop\\history.cashflow");
-            writer.close();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(defaultFilePath.toString()))) {
+                writer.write(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "history.cashflow");
+            } catch (IOException e) {
+                System.out.println("An error occurred while writing on file");
+            }
         } catch (IOException e) {
             System.out.println("Couldn't create the default file: it may exist already.");
         }
-
     }
 
     public Path getFilepath() {
         Path path = null;
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(defaultFilePath.toString()));
+        try (BufferedReader reader = new BufferedReader(new FileReader(defaultFilePath.toString()))) {
             path = Paths.get(reader.readLine());
-
         } catch (IOException e) {
             System.out.println("Couldn't find the history_location.config file.");
         }
@@ -53,9 +51,7 @@ public class Controller {
 
     public void loadTransactionsFromFile() {
         register.getTransactions().clear();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath.toString()));
-
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath.toString()))) {
             String line = null;
             while ((line = bufferedReader.readLine()) != null) {
                 //Decode line into Transaction
@@ -134,12 +130,9 @@ public class Controller {
 
                 this.register.getTransactions().add(new Transaction(importRead, Currencies.ParseCurrency(currencyRead), typeRead, commentRead, dateRead));
             }
-
-            bufferedReader.close();
         } catch (IOException e) {
             System.out.println("Couldn't read the file: check if the file exists or if the file is well formatted.");
         }
-
     }
     public void addTransaction(Float value, Currency currency, String type, String comment, LocalDate date) {
         Transaction newTransaction = new Transaction(value, currency, type, comment, date);
@@ -296,10 +289,8 @@ public class Controller {
 
     public void setFilePath(String path) {
         this.filePath = Paths.get(path);
-        try{
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.defaultFilePath.toString()));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.defaultFilePath.toString()))) {
             writer.write(path);
-            writer.close();
         } catch (IOException e) {
             System.out.println("Couldn't create the file: it may exist already");
         }
