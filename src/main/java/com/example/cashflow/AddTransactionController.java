@@ -57,14 +57,15 @@ public class AddTransactionController implements Initializable {
             Float insertedImport = Float.parseFloat(textImport.getText());
             Currency insertedCurrency = Currencies.ParseCurrency(choiceCurrency.getValue());
             String insertedType = textType.getText();
-            String insertedComment;
-            try {
-                insertedComment = textComment.getText();
-            } catch (Exception exception) {
-                insertedComment = null;
-            }
+            String insertedComment = isTextfieldEmpty(textComment) ? null : textComment.getText();
             LocalDate insertedDate = datepicker.getValue();
 
+            if (insertedType.contains("<") || insertedType.contains(">")) {
+                throw new IOException("Comment and Type fields cannot contain < or >.");
+            }
+            if (insertedComment != null && (insertedComment.contains("<") || insertedComment.contains(">"))) {
+                throw new IOException("Comment and Type fields cannot contain < or >.");
+            }
             if (insertedDate == null) {
                 throw new DateTimeException("");
             }
@@ -89,8 +90,22 @@ public class AddTransactionController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Please insert a valid date");
             alert.showAndWait();
+        } catch (IOException e3) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText(e3.getMessage());
+            alert.showAndWait();
         }
     }
+
+    private boolean isTextfieldEmpty(TextField textField) {
+        try {
+            textField.getText();
+        } catch (Exception exception) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         choiceCurrency.getItems().addAll("eur", "usd");
