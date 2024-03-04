@@ -379,4 +379,36 @@ public class Controller {
             }
         }
     }
+
+    public Float getExpensesInPeriod(LocalDate startOfPeriod, LocalDate endOfPeriod) {
+        float total = 0;
+        int size = register.getTransactions().size();
+        for (int i = 0; i < size; i++) {
+            Transaction t = register.getTransactions().get(i);
+            if (((t.getDate().isAfter(startOfPeriod) && t.getDate().isBefore(endOfPeriod)) || (t.getDate().isEqual(startOfPeriod)) || (t.getDate().isEqual(endOfPeriod))) && (t.getValue() < 0)) {
+                Float value = t.getValue();
+                if (!t.getCurrency().equals(defaultCurrency)) {
+                    value *= getExchange(t.getCurrency(), defaultCurrency);
+                }
+                total += value;
+            }
+        }
+        return total;
+    }
+
+    public float getEarningsInPeriod(LocalDate startOfPeriod, LocalDate endOfPeriod) {
+        float total = 0;
+        int size = register.getTransactions().size();
+        for (int i = 0; i < size; i++) {
+            Transaction t = register.getTransactions().get(i);
+            if (((t.getDate().isAfter(startOfPeriod) && t.getDate().isBefore(endOfPeriod)) || (t.getDate().isEqual(startOfPeriod)) || (t.getDate().isEqual(endOfPeriod))) && (t.getValue() > 0)) {
+                Float value = t.getValue();
+                if (!t.getCurrency().equals(defaultCurrency)) {
+                    value *= getExchange(t.getCurrency(), defaultCurrency);
+                }
+                total += value;
+            }
+        }
+        return total;
+    }
 }

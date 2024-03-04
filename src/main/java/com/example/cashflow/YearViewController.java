@@ -22,6 +22,8 @@ import model.Currencies;
 import model.Currency;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
@@ -148,9 +150,12 @@ public class YearViewController implements Initializable {
         LocalDate startOfPeriod = LocalDate.of(LocalDate.now().getYear(), 1, 1);
         LocalDate endOfPeriod = LocalDate.of(LocalDate.now().getYear(), 12, 31);
 
-        String moneySpent = Float.toString(controller.getYearExpenses());
-        String moneyEarned = Float.toString(controller.getYearEarnings());
-        String balance = Float.toString(controller.getYearBalance());
+        String moneySpent = Float.toString(BigDecimal.valueOf(controller.getYearExpenses()).setScale(2, RoundingMode.HALF_EVEN)
+                .floatValue());
+        String moneyEarned = Float.toString(BigDecimal.valueOf(controller.getYearEarnings()).setScale(2, RoundingMode.HALF_EVEN)
+                .floatValue());
+        String balance = Float.toString(BigDecimal.valueOf(controller.getYearBalance()).setScale(2, RoundingMode.HALF_EVEN)
+                .floatValue());
 
         labelMoneySpent.setText(moneySpent);
         labelMoneyEarned.setText(moneyEarned);

@@ -22,6 +22,8 @@ import model.Currencies;
 import model.Currency;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
@@ -148,9 +150,12 @@ public class LastSemesterViewController implements Initializable {
         LocalDate endOfPeriod = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()));
         LocalDate startOfPeriod = endOfPeriod.minusMonths(6);
 
-        String moneySpent = Float.toString(controller.getYearExpenses());
-        String moneyEarned = Float.toString(controller.getYearEarnings());
-        String balance = Float.toString(controller.getYearBalance());
+        String moneySpent = Float.toString(BigDecimal.valueOf(controller.getExpensesInPeriod(startOfPeriod, endOfPeriod)).setScale(2, RoundingMode.HALF_EVEN)
+                .floatValue());
+        String moneyEarned = Float.toString(BigDecimal.valueOf(controller.getEarningsInPeriod(startOfPeriod, endOfPeriod)).setScale(2, RoundingMode.HALF_EVEN)
+                .floatValue());
+        String balance = Float.toString(BigDecimal.valueOf(controller.getYearBalance()).setScale(2, RoundingMode.HALF_EVEN)
+                .floatValue());
 
         labelMoneySpent.setText(moneySpent);
         labelMoneyEarned.setText(moneyEarned);
