@@ -143,16 +143,20 @@ public class MonthViewController implements Initializable {
         LocalDate startOfPeriod = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1);
         LocalDate endOfPeriod = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()));
 
-        String moneySpent = Float.toString(BigDecimal.valueOf(controller.getMonthExpenses(LocalDate.now().getMonthValue())).setScale(2, RoundingMode.HALF_EVEN)
+        float moneySpent = -controller.getExpensesInPeriod(startOfPeriod, endOfPeriod);
+        float moneyEarned = controller.getEarningsInPeriod(startOfPeriod, endOfPeriod);
+        float balance = moneyEarned - moneySpent;
+
+        String moneySpentText = Float.toString(BigDecimal.valueOf(moneySpent).setScale(2, RoundingMode.HALF_EVEN)
                 .floatValue());
-        String moneyEarned = Float.toString(BigDecimal.valueOf(controller.getMonthEarnings(LocalDate.now().getMonthValue())).setScale(2, RoundingMode.HALF_EVEN)
+        String moneyEarnedText = Float.toString(BigDecimal.valueOf(moneyEarned).setScale(2, RoundingMode.HALF_EVEN)
                 .floatValue());
-        String balance = Float.toString(BigDecimal.valueOf(controller.getMonthBalance(LocalDate.now().getMonthValue())).setScale(2, RoundingMode.HALF_EVEN)
+        String balanceText = Float.toString(BigDecimal.valueOf(balance).setScale(2, RoundingMode.HALF_EVEN)
                 .floatValue());
 
-        labelMoneySpent.setText(moneySpent);
-        labelMoneyEarned.setText(moneyEarned);
-        labelBalance.setText(balance);
+        labelMoneySpent.setText(moneySpentText);
+        labelMoneyEarned.setText(moneyEarnedText);
+        labelBalance.setText(balanceText);
 
         areachartTransactions.getData().clear();
         XYChart.Series<Integer, Float> expenses = new XYChart.Series<>();

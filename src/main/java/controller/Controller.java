@@ -9,8 +9,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Controller {
     private Register register;
@@ -145,22 +145,6 @@ public class Controller {
         }
     }
 
-    public float getYearExpenses() {
-        float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (t.getDate().getYear() == LocalDate.now().getYear() && (t.getValue() < 0)) {
-                Float value = t.getValue();
-                if (!t.getCurrency().equals(defaultCurrency)) {
-                    value *= getExchange(t.getCurrency(), defaultCurrency);
-                }
-                    total += value;
-            }
-        }
-        return -total;
-    }
-
     private Float getExchange(Currency currency1, Currency currency2) {
         //In the future: get the exchange values from open exchange rates API
         //But at this time we are poor...
@@ -181,86 +165,6 @@ public class Controller {
         }
     }
 
-    public float getYearEarnings() {
-        float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (t.getDate().getYear() == LocalDate.now().getYear() && (t.getValue() > 0)) {
-                Float value = t.getValue();
-                if (!t.getCurrency().equals(defaultCurrency)) {
-                    value *= getExchange(t.getCurrency(), defaultCurrency);
-                }
-                total += value;
-            }
-        }
-        return total;
-    }
-
-    public float getYearBalance() {
-        float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (t.getDate().getYear() == LocalDate.now().getYear()) {
-                Float value = t.getValue();
-                if (!t.getCurrency().equals(defaultCurrency)) {
-                    value *= getExchange(t.getCurrency(), defaultCurrency);
-                }
-                total += value;
-            }
-        }
-        return total;
-    }
-
-    public Float getMonthExpenses(int month) {
-        float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (register.getTransactions().get(i).getDate().getYear() == LocalDate.now().getYear() && register.getTransactions().get(i).getDate().getMonth() == Month.of(month) && (register.getTransactions().get(i).getValue() < 0)) {
-                Float value = t.getValue();
-                if (!t.getCurrency().equals(defaultCurrency)) {
-                    value *= getExchange(t.getCurrency(), defaultCurrency);
-                }
-                total += value;
-            }
-        }
-        return -total;
-    }
-
-    public Float getMonthEarnings(int month) {
-        float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (register.getTransactions().get(i).getDate().getYear() == LocalDate.now().getYear() && register.getTransactions().get(i).getDate().getMonth() == Month.of(month) && (register.getTransactions().get(i).getValue() > 0)) {
-                Float value = t.getValue();
-                if (!t.getCurrency().equals(defaultCurrency)) {
-                    value *= getExchange(t.getCurrency(), defaultCurrency);
-                }
-                total += value;
-            }
-        }
-        return total;
-    }
-
-    public float getMonthBalance(int month) {
-        float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (register.getTransactions().get(i).getDate().getYear() == LocalDate.now().getYear() && register.getTransactions().get(i).getDate().getMonth() == Month.of(month)) {
-                Float value = t.getValue();
-                if (!t.getCurrency().equals(defaultCurrency)) {
-                    value *= getExchange(t.getCurrency(), defaultCurrency);
-                }
-                total += value;
-            }
-        }
-        return total;
-    }
-
     public void setDefaultCurrency(Currency currency) {
         if (currency == Currency.USD || currency == Currency.EUR) {
             this.defaultCurrency = currency;
@@ -277,8 +181,9 @@ public class Controller {
      * @param dates - output parameter
      */
     public void getAllTransactions(ArrayList<Float> imports, ArrayList<Currency> currencies, ArrayList<String> types, ArrayList<String> comments, ArrayList<LocalDate> dates) {
-        for (int i = this.register.getTransactions().size()-1; i >= 0; i--) {
-            Transaction t = this.register.getTransactions().get(i);
+        Iterator<Transaction> it = register.getTransactions().descendingIterator();
+        while (it.hasNext()) {
+            Transaction t = it.next();
             imports.add(t.getValue());
             currencies.add(t.getCurrency());
             types.add(t.getType());
@@ -298,11 +203,9 @@ public class Controller {
 
     public Float getDayExpenses(LocalDate date) {
         float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (t.getDate().equals(date) && (t.getValue() < 0)) {
-                Float value = t.getValue();
+        for (Transaction t : register.getTransactions()) {
+            if (t.getDate().isEqual(date) && t.getValue() < 0) {
+                float value = t.getValue();
                 if (!t.getCurrency().equals(defaultCurrency)) {
                     value *= getExchange(t.getCurrency(), defaultCurrency);
                 }
@@ -314,11 +217,9 @@ public class Controller {
 
     public Float getDayEarnings(LocalDate date) {
         float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (t.getDate().equals(date) && (t.getValue() > 0)) {
-                Float value = t.getValue();
+        for (Transaction t : register.getTransactions()) {
+            if (t.getDate().isEqual(date) && t.getValue() > 0) {
+                float value = t.getValue();
                 if (!t.getCurrency().equals(defaultCurrency)) {
                     value *= getExchange(t.getCurrency(), defaultCurrency);
                 }
@@ -335,11 +236,13 @@ public class Controller {
      * @param earningsByType - output parameter
      */
     public void getEarningsByTypeInPeriod(ArrayList<String> types, ArrayList<Float> earningsByType, LocalDate startOfPeriod, LocalDate endOfPeriod) {
-        for (int i = 0; i < register.getTransactions().size(); i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (((t.getDate().isAfter(startOfPeriod) && t.getDate().isBefore(endOfPeriod)) || (t.getDate().isEqual(startOfPeriod)) || (t.getDate().isEqual(endOfPeriod))) && (t.getValue() > 0)) {
+        for (Transaction t : register.getTransactions()) {
+            if ( (t.getDate().isAfter(startOfPeriod) || t.getDate().isEqual(startOfPeriod)) &&
+                    (t.getDate().isBefore(endOfPeriod) || t.getDate().isEqual(endOfPeriod)) &&
+                    t.getValue() > 0 ) {
+
                 int index = types.indexOf(t.getType());
-                Float value = t.getValue();
+                float value = t.getValue();
                 if (index == -1) {
                     types.add(t.getType());
                     earningsByType.add(value);
@@ -361,11 +264,13 @@ public class Controller {
      * @param expensesByType - output parameter
      */
     public void getExpensesByTypeInPeriod(ArrayList<String> types, ArrayList<Float> expensesByType, LocalDate startOfPeriod, LocalDate endOfPeriod) {
-        for (int i = 0; i < register.getTransactions().size(); i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (((t.getDate().isAfter(startOfPeriod) && t.getDate().isBefore(endOfPeriod)) || (t.getDate().isEqual(startOfPeriod)) || (t.getDate().isEqual(endOfPeriod))) && (t.getValue() < 0)) {
+        for (Transaction t : register.getTransactions()) {
+            if ( (t.getDate().isAfter(startOfPeriod) || t.getDate().isEqual(startOfPeriod)) &&
+                    (t.getDate().isBefore(endOfPeriod) || t.getDate().isEqual(endOfPeriod)) &&
+                    t.getValue() < 0 ) {
+
                 int index = types.indexOf(t.getType());
-                Float value = - t.getValue(); //The pieChart doesn't want negative values
+                float value = - t.getValue(); //The pieChart doesn't want negative values
                 if (index == -1) {
                     types.add(t.getType());
                     expensesByType.add(value);
@@ -380,13 +285,13 @@ public class Controller {
         }
     }
 
-    public Float getExpensesInPeriod(LocalDate startOfPeriod, LocalDate endOfPeriod) {
+    public float getExpensesInPeriod(LocalDate startOfPeriod, LocalDate endOfPeriod) {
         float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (((t.getDate().isAfter(startOfPeriod) && t.getDate().isBefore(endOfPeriod)) || (t.getDate().isEqual(startOfPeriod)) || (t.getDate().isEqual(endOfPeriod))) && (t.getValue() < 0)) {
-                Float value = t.getValue();
+        for (Transaction t : register.getTransactions()) {
+            if ((t.getDate().isAfter(startOfPeriod) || t.getDate().isEqual(startOfPeriod)) &&
+                    ((t.getDate().isBefore(endOfPeriod)) || t.getDate().isEqual(endOfPeriod)) &&
+                    t.getValue() < 0) {
+                float value = t.getValue();
                 if (!t.getCurrency().equals(defaultCurrency)) {
                     value *= getExchange(t.getCurrency(), defaultCurrency);
                 }
@@ -398,11 +303,11 @@ public class Controller {
 
     public float getEarningsInPeriod(LocalDate startOfPeriod, LocalDate endOfPeriod) {
         float total = 0;
-        int size = register.getTransactions().size();
-        for (int i = 0; i < size; i++) {
-            Transaction t = register.getTransactions().get(i);
-            if (((t.getDate().isAfter(startOfPeriod) && t.getDate().isBefore(endOfPeriod)) || (t.getDate().isEqual(startOfPeriod)) || (t.getDate().isEqual(endOfPeriod))) && (t.getValue() > 0)) {
-                Float value = t.getValue();
+        for (Transaction t : register.getTransactions()) {
+            if ((t.getDate().isAfter(startOfPeriod) || t.getDate().isEqual(startOfPeriod)) &&
+                    ((t.getDate().isBefore(endOfPeriod)) || t.getDate().isEqual(endOfPeriod)) &&
+                    t.getValue() > 0) {
+                float value = t.getValue();
                 if (!t.getCurrency().equals(defaultCurrency)) {
                     value *= getExchange(t.getCurrency(), defaultCurrency);
                 }

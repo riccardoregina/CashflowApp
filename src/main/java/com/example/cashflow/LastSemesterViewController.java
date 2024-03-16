@@ -1,6 +1,6 @@
 package com.example.cashflow;
 
-import javafx.application.Platform;
+import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,15 +9,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import controller.Controller;
 import model.Currencies;
 import model.Currency;
 
@@ -150,16 +148,20 @@ public class LastSemesterViewController implements Initializable {
         LocalDate endOfPeriod = LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getMonth().length(LocalDate.now().isLeapYear()));
         LocalDate startOfPeriod = endOfPeriod.minusMonths(6);
 
-        String moneySpent = Float.toString(BigDecimal.valueOf(controller.getExpensesInPeriod(startOfPeriod, endOfPeriod)).setScale(2, RoundingMode.HALF_EVEN)
+        float moneySpent = -controller.getExpensesInPeriod(startOfPeriod, endOfPeriod);
+        float moneyEarned = controller.getEarningsInPeriod(startOfPeriod, endOfPeriod);
+        float balance = moneyEarned - moneySpent;
+
+        String moneySpentText = Float.toString(BigDecimal.valueOf(moneySpent).setScale(2, RoundingMode.HALF_EVEN)
                 .floatValue());
-        String moneyEarned = Float.toString(BigDecimal.valueOf(controller.getEarningsInPeriod(startOfPeriod, endOfPeriod)).setScale(2, RoundingMode.HALF_EVEN)
+        String moneyEarnedText = Float.toString(BigDecimal.valueOf(moneyEarned).setScale(2, RoundingMode.HALF_EVEN)
                 .floatValue());
-        String balance = Float.toString(BigDecimal.valueOf(controller.getYearBalance()).setScale(2, RoundingMode.HALF_EVEN)
+        String balanceText = Float.toString(BigDecimal.valueOf(balance).setScale(2, RoundingMode.HALF_EVEN)
                 .floatValue());
 
-        labelMoneySpent.setText(moneySpent);
-        labelMoneyEarned.setText(moneyEarned);
-        labelBalance.setText(balance);
+        labelMoneySpent.setText(moneySpentText);
+        labelMoneyEarned.setText(moneyEarnedText);
+        labelBalance.setText(balanceText);
 
         areachartTransactions.getData().clear();
 
@@ -170,8 +172,10 @@ public class LastSemesterViewController implements Initializable {
         earnings.setName("Earnings");
 
         for (int i = 1; i <= 12; i++) {
-            expenses.getData().add(new XYChart.Data<>(i, controller.getMonthExpenses(i)));
-            earnings.getData().add(new XYChart.Data<>(i, controller.getMonthEarnings(i)));
+            LocalDate startOfMonth = LocalDate.of(LocalDate.now().getYear(), Month.of(i), 1);
+            LocalDate endOfMonth = LocalDate.of(LocalDate.now().getYear(), Month.of(i), Month.of(i).length(LocalDate.now().isLeapYear()));
+            expenses.getData().add(new XYChart.Data<>(i, -controller.getExpensesInPeriod(startOfMonth, endOfMonth)));
+            earnings.getData().add(new XYChart.Data<>(i, controller.getEarningsInPeriod(startOfMonth, endOfMonth)));
         }
 
         areachartTransactions.getData().addAll(expenses, earnings);
