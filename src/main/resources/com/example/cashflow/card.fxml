@@ -21,11 +21,20 @@
                   <Label fx:id="labelComment" prefHeight="84.0" prefWidth="115.0" text="Comment" />
                </children>
             </HBox>
-            <Label fx:id="labelImport" alignment="CENTER" prefHeight="20.0" prefWidth="231.0" text="Import">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label fx:id="labelImport" alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="125.0" text="Import">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelCurrency" prefHeight="20.0" prefWidth="115.0" text="Currency">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <Label fx:id="labelDate" alignment="CENTER" prefHeight="17.0" prefWidth="230.0" text="Date" />
          </children>
          <styleClass>
