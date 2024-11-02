@@ -7,6 +7,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -70,5 +71,6 @@
             <VBox fx:id="cardContainer" prefHeight="488.0" prefWidth="217.0" spacing="10.0" />
          </content>
       </ScrollPane>
+      <TextField fx:id="textFieldFilter" layoutX="678.0" layoutY="23.0" prefHeight="25.0" prefWidth="169.0" promptText="A trans. type to filter results" />
    </children>
 </AnchorPane>

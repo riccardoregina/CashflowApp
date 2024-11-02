@@ -270,15 +270,16 @@ public class Controller {
     }
 
     /**
-     *
-     * @param imports - output parameter
+     * @param imports    - output parameter
      * @param currencies - output parameter
-     * @param types - output parameter
-     * @param dates - output parameter
+     * @param types      - output parameter
+     * @param dates      - output parameter
+     * @param filter     - input parameter
      */
-    public void getAllTransactions(ArrayList<Float> imports, ArrayList<Currency> currencies, ArrayList<String> types, ArrayList<String> comments, ArrayList<LocalDate> dates) {
+    public void getTransactions(ArrayList<Float> imports, ArrayList<Currency> currencies, ArrayList<String> types, ArrayList<String> comments, ArrayList<LocalDate> dates, String filter) {
         for (int i = this.register.getTransactions().size()-1; i >= 0; i--) {
             Transaction t = this.register.getTransactions().get(i);
+            if ((filter != null) && !filter.isEmpty() && !t.getType().equals(filter)) continue;
             imports.add(t.getValue());
             currencies.add(t.getCurrency());
             types.add(t.getType());
