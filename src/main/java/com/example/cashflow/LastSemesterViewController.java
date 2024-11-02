@@ -1,6 +1,5 @@
 package com.example.cashflow;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -26,7 +23,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -208,7 +204,7 @@ public class LastSemesterViewController implements Initializable {
         ArrayList<String> types = new ArrayList<>();
         ArrayList<String> comments = new ArrayList<>();
         ArrayList<LocalDate> date = new ArrayList<>();
-        controller.getAllTransactions(imports, currencies, types, comments, date);
+        controller.getTransactions(imports, currencies, types, comments, date, null);
         for (int i = 0; i < imports.size(); i++) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();

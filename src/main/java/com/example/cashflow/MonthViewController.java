@@ -203,7 +203,7 @@ public class MonthViewController implements Initializable {
         ArrayList<String> types = new ArrayList<>();
         ArrayList<String> comments = new ArrayList<>();
         ArrayList<LocalDate> date = new ArrayList<>();
-        controller.getAllTransactions(imports, currencies, types, comments, date);
+        controller.getTransactions(imports, currencies, types, comments, date, null);
         for (int i = 0; i < imports.size(); i++) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader();
