@@ -71,6 +71,9 @@ public class SettingsController {
 
         controller.setFilePath(path);
         controller.loadTransactionsFromFile();
+        Alert success = new Alert(Alert.AlertType.INFORMATION);
+        success.setContentText("The file has been loaded successfully.");
+        success.showAndWait();
     }
 
     public void setUSDtoEURexchange(ActionEvent e) {
