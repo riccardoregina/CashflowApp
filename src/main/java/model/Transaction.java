@@ -38,4 +38,14 @@ public class Transaction {
     public String toString() {
         return "<" + value.toString() + ">" + "<" + Currencies.CurrencyToString(currency) + ">" + "<" + type + ">" + "<" + comment.toString() + ">" + "<" + date.toString() + ">";
     }
+
+    public String toXML() {
+        return "\t" + "<transaction>" + "\n" +
+                "\t\t" + "<value>"+ value +"</value>" + "\n" +
+                "\t\t" + "<type>" + type + "</type>" + "\n" +
+                "\t\t" + "<comment>" + comment + "</comment>" + "\n" +
+                "\t\t" + "<date>" + date + "</date>" + "\n" +
+                "\t\t" + "<currency>" + type + "</currency>" + "\n" +
+                "\t" + "</transaction>" + "\n";
+    }
 }

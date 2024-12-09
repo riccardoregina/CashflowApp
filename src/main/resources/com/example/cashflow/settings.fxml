@@ -40,5 +40,6 @@
       <TextField fx:id="textfieldUSDtoEUR" layoutX="308.0" layoutY="264.0" prefHeight="25.0" prefWidth="56.0" />
       <Button fx:id="buttonUSDtoEUR" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" onAction="#setUSDtoEURexchange" text="Set" />
       <Separator layoutX="235.0" layoutY="264.0" orientation="VERTICAL" prefHeight="25.0" prefWidth="6.0" />
+      <Button fx:id="generateXMLTranscript" layoutX="55.0" layoutY="364.0" mnemonicParsing="false" onAction="#generateXMLTranscript" text="Generate XML" />
    </children>
 </AnchorPane>

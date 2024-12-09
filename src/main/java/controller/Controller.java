@@ -49,6 +49,33 @@ public class Controller {
         return path;
     }
 
+    public void generateXMLTranscript() {
+        Path filepath = Paths.get(System.getProperty("user.home") + File.separator + "Documents" + File.separator + "history.xml");
+        File file = new File(filepath.toString());
+        try {
+            if (file.createNewFile()) {
+                //System.out.println("XML transcript file created.");
+            } else {
+                System.out.println("Couldn't create the XML transcript: the file already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the XML transcript.");
+        }
+        try {
+            String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n";
+            Files.write(filepath, header.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            String toAdd = "<transactions>" + "\n";
+            Files.write(filepath, toAdd.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            for (Transaction t : register.getTransactions()) {
+                Files.write(filepath, t.toXML().getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+            }
+            toAdd = "</transactions>";
+            Files.write(filepath, toAdd.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing the XML transcript.");
+        }
+    }
+
     public void loadTransactionsFromFile() {
         register.getTransactions().clear();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath.toString()))) {
