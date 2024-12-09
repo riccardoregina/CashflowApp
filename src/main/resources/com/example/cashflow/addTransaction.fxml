@@ -10,7 +10,7 @@
    <children>
       <TextField fx:id="textImport" layoutX="401.0" layoutY="212.0" prefHeight="25.0" prefWidth="149.0" text="Import" />
       <TextField fx:id="textType" layoutX="401.0" layoutY="246.0" text="Type" />
-      <DatePicker fx:id="datepicker" layoutX="401.0" layoutY="315.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="datepicker" editable="false" layoutX="401.0" layoutY="315.0" prefHeight="25.0" prefWidth="149.0" />
       <Button layoutX="953.0" layoutY="546.0" mnemonicParsing="false" onAction="#switchToMenu" text="Back to menu" />
       <Button layoutX="556.0" layoutY="246.0" mnemonicParsing="false" onAction="#addTransaction" prefHeight="94.0" prefWidth="60.0" text="Add" />
       <ChoiceBox fx:id="choiceCurrency" layoutX="556.0" layoutY="212.0" prefHeight="25.0" prefWidth="60.0" />
